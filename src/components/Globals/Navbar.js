@@ -49,7 +49,7 @@ https://www.iconfinder.com/webalys */}
           <ul className="navbar-nav mx-auto">
             {this.state.links.map(link => {
               return (
-                <li className="nav-item">
+                <li className="nav-item" key={link.id}>
                   <Link to={link.path} className="nav-link text-capitalize">
                     {link.text}
                   </Link>
