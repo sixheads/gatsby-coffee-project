@@ -50,7 +50,7 @@ https://www.iconfinder.com/webalys */}
             {this.state.links.map(link => {
               return (
                 <li className="nav-item">
-                  <Link to={link.id} className="nav-link text-capitalize">
+                  <Link to={link.path} className="nav-link text-capitalize">
                     {link.text}
                   </Link>
                 </li>
