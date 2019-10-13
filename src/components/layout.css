@@ -53,3 +53,6 @@ h6 {
 .footer {
   background: var(--mainBrown);
 }
+.menu {
+  background: var(--mainGrey);
+}
