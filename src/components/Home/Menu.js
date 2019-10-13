@@ -2,12 +2,42 @@ import React, { Component } from "react"
 import Title from "../Globals/Title"
 import Img from "gatsby-image"
 
+// this function maps over items and pulls out the category
+// it then creates a new Set of just the single categories - no repeats
+// it then coverts the array into an object
+const getCategories = items => {
+  let tempItems = items.map(items => {
+    return items.node.category
+  })
+  let tempCategories = new Set(tempItems)
+  let categories = Array.from(tempCategories)
+  categories = ["all", ...categories]
+  return categories
+}
+
 export default class Menu extends Component {
   constructor(props) {
     super(props)
     this.state = {
       items: props.items.edges,
       coffeeItems: props.items.edges,
+      categories: getCategories(props.items.edges),
+    }
+  }
+
+  // this function shows all from our items state - original
+  // or filters coffeeItems state based on the category returned from the button click
+  handleItems = category => {
+    let tempItems = [...this.state.items]
+    if (category === "all") {
+      this.setState(() => {
+        return { coffeeItems: tempItems }
+      })
+    } else {
+      let items = tempItems.filter(({ node }) => node.category === category)
+      this.setState(() => {
+        return { coffeeItems: items }
+      })
     }
   }
   render() {
@@ -16,8 +46,33 @@ export default class Menu extends Component {
         <section className="menu py-5">
           <div className="container">
             <Title title="best of our menu" />
-            {/* categories */}
-            {/* items */}
+            {/*
+            categories
+            - pulls from the categories state which is based on our getCategories function
+            */}
+            <div className="row mb-5">
+              <div className="col-10 mx-auto text-center">
+                {this.state.categories.map((category, index) => {
+                  return (
+                    <button
+                      type="button"
+                      key={index}
+                      className="btn btn-yellow text-capitalize m-3"
+                      onClick={() => {
+                        this.handleItems(category)
+                      }}
+                    >
+                      {category}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+            {/*
+            items
+            - maps through our items loaded into the coffeeItems state
+            - this gets effected by the filter buttons above
+            */}
             <div className="row">
               {this.state.coffeeItems.map(({ node }) => {
                 return (

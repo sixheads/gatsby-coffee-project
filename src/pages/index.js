@@ -44,6 +44,7 @@ export const query = graphql`
               ...GatsbyContentfulFixed_tracedSVG
             }
           }
+          category
         }
       }
     }
