@@ -13,6 +13,7 @@ const getProducts = graphql`
           price
           image {
             fluid {
+              src
               ...GatsbyContentfulFluid_tracedSVG
             }
           }
